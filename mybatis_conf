@@ -1,0 +1,44 @@
+在mybatis中，首先是下载和配置mybatis jar包和相应的数据库驱动jar包
+然后就是在数据库和程序中建立相应的数据table和类
+紧接着就是进行orm即 进行数据库table和相应的类的配置
+首先是配置conf.xml文件，
+文件头为
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+ 
+ 
+ <configuration>
+ 在configuration标签中高配置信息
+ 其中重要的字标签有 environments  mappers  settings allias  properties瞪
+settings标签中有setting字标签
+其结构为  <setting name="" value=""/>一次来配置一些数据库的重要信息
+
+alias为别名  其中为类设置简单的别名 这个别名的范围整个项目
+
+properties用来配置一些代理，即用简单的类型代理一些复杂且一直在重复使用给的字符串
+
+environments中可以配置多个environment 用来设置数据库登录信息
+其结构为
+<environments default="development">
+ 	<environment id="development">
+ 		<transactionManager type="JDBC"/>
+	 		<dataSource type="POOLED">
+				 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+				 <property name="url" value="jdbc:mysql://localhost:3306/test?serverTimezone=UTC&amp;"/>
+				 <property name="username" value="root"/>
+		 		<property name="password" value="901125"/>
+	 		</dataSource>
+		 </environment>
+ 	</environments>
+	每个environment都有一个id值   environmens标签中有一个default属性用来制定默认environment
+	environment标签中有个字标签 分别是 transactionManager 用来制定事务属性
+	还有一个是  dataSource字标签用来配置数据登录信息。
+	
+	mapper文件用来中maaper文件（映射文件）
+	其结构为<mappers>
+ <mapper resource="mapperPackage/testMapper.xml"/>
+ </mappers>
+ 一个mappers中可以有多个mapper
