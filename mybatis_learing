@@ -1,0 +1,25 @@
+先在mybatis中lib目录中寻找log4j jar包
+导入 然后再conf.xml中配置settings标签
+内容为<settings>
+			<seting name="" value=""/>
+		<settings>
+如果不在conf.xml中配置此标签免责会以一下顺序寻找日志
+SLF4J Apache Commons Logging    Log4j 2  log4j  jdk logging
+
+
+第三部编写输出文件在根目录中建立文件log4j.properties
+文件内容为
+# Global logging configuration
+log4j.rootLogger=ERROR, stdout   第一个参数为日志的级别，决定输出内容  第二参数为日志输出的对象
+日志的级别debug info warn error  级别越来越小  前者包含后者输出内容最多
+建议在开发是设置成debug  在运行设置成 info以及以后
+# MyBatis logging configuration...
+log4j.logger.com.baidu.test.dao.BlogMapper=TRACE
+# Console output...
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+日志显示的方式是普通
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+输出的layout
+log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
+输出的格式
+此为mybatis设置log的方式
