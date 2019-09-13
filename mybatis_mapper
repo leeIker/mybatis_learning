@@ -1,0 +1,36 @@
+mapper.xml
+是orm的核心，在这里配置数据库和类的一一对应关系
+首先mapper的名字可以是任意的，但是一般是以类名+mapper的形式存在
+比如studentMapper.xml
+mapper文件的表头的是
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 内容都写在mapper标签中
+ mapper标签有namesapace属性value为mapper文件的路径
+ 比如<mapper namespace="mapperPackage.testMapper">
+ mapper中有 select ，insert ，update delete标签
+ 每个标签标签都有 id属性，用作唯一标识符
+ 
+ 每个标签内有 parameterType属性  ，
+ resultType属性   resultMap属性
+ 分别对应传入参数和数据库传出的结果集
+ 数据类型可以是简单类型，也可以是对象类型
+ 简单类型即八大基础类型加字符串
+ 
+ parameterType参数
+参数为简单类型 在sql语句可以用#{}来获取传入参数
+但参数为简单类型    大括号中可以为任意字符，但是一般对应对象的某个属性
+但传入对象类型参数是  ，#{}中的值必须和对象的属性一直，否则mybatis不能识别
+
+还有一点是参数值也能有${}代替 但是如果是这种情况，则传入字符串是需加上引号，因为#{}会给字符串自动
+加上引号，但是${}不会。
+
+resultType 也是可以返回简单类型或者引用类型
+这个类型很简单传入简单类型就是简单类型，传入引用类型的时候
+如果  数据库中数据类型和colomn——name和类的数据类型和字段名都是一直，则可以自动匹配
+如果不行，则需要使用resultMap，将两者一一对应起来。
+
+注意 在java中简单类型作为成员变量没有赋值，则数字类型默认是0，字符串默认是null，boolean默认是false
+char的默认值是‘’即什么也没有。
